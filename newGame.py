@@ -22,7 +22,7 @@ class Program:
         self.is_start = False
 
         # Cờ addmin
-        self.admin_mode = False
+        self.admin_mode = True
 
     def main(self): 
         self.create_newPlayer()
@@ -40,9 +40,9 @@ class Program:
     def endProcess(self):
         self.active = True
         myfont = pygame.font.SysFont("./fonts/ComicSansMS3.ttf", 200)
-        label = myfont.render('VICTORY', True, RED)
+        label = myfont.render('YOU WIN', True, RED)
         if self.counter > 0:
-            label = myfont.render('TRY AGAIN', True, RED)
+            label = myfont.render('GAME OVER', True, RED)
         label_rect = label.get_rect(center=(WORLD_X/2, WORLD_Y/2))
         while self.active:
             for event in pygame.event.get():
@@ -134,9 +134,15 @@ class Program:
             return False
         if self.is_start:
             self.counter -= 1
-        pygame.draw.rect(self.WORLD, WHITE, (BLOCK_SIZE[0], 10*U, BLOCK_SIZE[0]*3, BLOCK_SIZE[1]-20*U))
-        label = self.myfont.render(f'Time: {self.counter/100}', BLACK, BLACK)
-        self.WORLD.blit(label, (BLOCK_SIZE[0]+8*U, BLOCK_SIZE[1]/4))
+            
+        # my_world = pygame.Surface((WORLD_X, WORLD_Y), pygame.SRCALPHA)
+        # pygame.draw.rect(my_world, WHITE, (BLOCK_SIZE[0], 10*U, BLOCK_SIZE[0]*3, BLOCK_SIZE[1]-20*U),10)
+
+
+        pygame.draw.rect(self.WORLD, '#FBDE44', (BLOCK_SIZE[0], 10*U, BLOCK_SIZE[0]*3, BLOCK_SIZE[1]-20*U))
+
+        label = self.myfont.render(f'Time: {self.counter/100}', RED, RED)
+        self.WORLD.blit(label, (BLOCK_SIZE[0]+8*U-5, BLOCK_SIZE[1]/4))
         return self.active
 
     def update_Objects(self):

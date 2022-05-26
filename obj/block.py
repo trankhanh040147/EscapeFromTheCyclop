@@ -6,7 +6,7 @@ class Block(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # Ảnh
-        self.image = pygame.transform.scale(pygame.image.load("./assets/img/BLOCK/block1.png"), BLOCK_SIZE)
+        self.image = pygame.transform.scale(pygame.image.load("./assets/img/BLOCK/block2.png"), BLOCK_SIZE)
 
         # Vị trí
         '''
