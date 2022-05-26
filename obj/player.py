@@ -4,7 +4,6 @@ from math import pi
 
 from obj.define import *
 from obj.map import *
-from obj.bullet import *
 
 class Player(pygame.sprite.Sprite):
     steps = PLAYER_SPEED
@@ -33,8 +32,11 @@ class Player(pygame.sprite.Sprite):
         self.position = position
         self.position_center = [position[0] + PLAYER_SIZE[0]/2, position[1] + PLAYER_SIZE[1]/2]
 
-        # Đạn đang được bắn
-        self.bullets = pygame.sprite.Group()
+        # Player square
+        self.square = [self.position_center[0]//BLOCK_SIZE[0], self.position_center[1]//BLOCK_SIZE[0]]
+
+        # is next square
+        self.isNextSquare = False
     
     def AddImage(self, path):
         img = pygame.image.load(path)
@@ -48,51 +50,35 @@ class Player(pygame.sprite.Sprite):
         self.movey += y
 
     # Check chạm tường HEIGHT
-    def isMovableX(self, x):
-        if self.position[0] + x < 0 or self.position[0] + x > WORLD_X - PLAYER_SIZE[0]:
-            return False
+    def isMovableX(self, x, blocks):
+        t = PLAYER_RADIUS
+        if x < 0:
+            t = -t
+        for block in blocks:
+            if block.collidepoint([self.position_center[0] + x + t, self.position_center[1]]):
+                return False
         return True
     
     # Check chạm tường WIDTH
-    def isMovableY(self, y):
-        if self.position[1] + y < 0 or self.position[1] + y > WORLD_Y - PLAYER_SIZE[0]:
-            return False
-        return True    
-
-    def isMovable(self, blocks):
+    def isMovableY(self, y, blocks):
+        t = PLAYER_RADIUS
+        if y < 0:
+            t = -t
         for block in blocks:
-            corners = self.get_corners(self.position_center)
-            if block.collidepoint(corners[0])\
-                or block.collidepoint(corners[1])\
-                    or block.collidepoint(corners[2])\
-                        or block.collidepoint(corners[3]):
+            if block.collidepoint([self.position_center[0], self.position_center[1] + y + t]):
                 return False
-        return True
-
-    def get_corners(self, rect):
-        return (
-            (rect[0] - PLAYER_RADIUS + self.movex, rect[1] - PLAYER_RADIUS + self.movey),             
-            (rect[0] - PLAYER_RADIUS + self.movex, rect[1] + PLAYER_RADIUS + self.movey), 
-            (rect[0] + PLAYER_RADIUS + self.movex, rect[1] - PLAYER_RADIUS + self.movey), 
-            (rect[0] + PLAYER_RADIUS + self.movex, rect[1] + PLAYER_RADIUS + self.movey), 
-                )
+        return True 
 
     def update(self, pos, blocks):
         # Di chuyển nhân vật
-        if self.isMovable(blocks):
-            if (self.isMovableX(self.movex)):
-                self.position[0] = self.position[0] + self.movex
-            if (self.isMovableY(self.movey)):
-                self.position[1] = self.position[1] + self.movey
-            self.rect[0], self.rect[1] = self.position
-            self.position_center = [self.position[0] + PLAYER_SIZE[0]/2, self.position[1] + PLAYER_SIZE[1]/2]
+        if (self.isMovableX(self.movex, blocks)):
+            self.position[0] = self.position[0] + self.movex
+        if (self.isMovableY(self.movey, blocks)):
+            self.position[1] = self.position[1] + self.movey
+        self.rect[0], self.rect[1] = self.position
+        self.position_center = [self.position[0] + PLAYER_SIZE[0]/2, self.position[1] + PLAYER_SIZE[1]/2]
         self.rotate(pos)
-
-        # Xóa đạn dư
-        for bullet in self.bullets:
-            if not (bullet.isMovableX(bullet.movex) and bullet.isMovableY(bullet.movey)) or not bullet.isMovable(blocks):
-                self.bullets.remove(bullet)
-                del bullet
+        self.isNextSquare = self.is_nextSquare()
 
     def rotate(self, pos):
         # Tìm góc so với vị trí chuột
@@ -111,6 +97,9 @@ class Player(pygame.sprite.Sprite):
         # Xoá khung
         self.image.set_colorkey(ALPHA)
 
-    def attack(self):
-        bullet = Bullet(self.angle, self.rect.center)
-        self.bullets.add(bullet)
+    def is_nextSquare(self):
+        new_square = [self.position_center[0]//BLOCK_SIZE[0], self.position_center[1]//BLOCK_SIZE[0]]
+        if new_square != self.square:
+            self.square = new_square
+            return True 
+        return False
