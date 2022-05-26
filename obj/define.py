@@ -14,9 +14,11 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 ALPHA = GREEN
-
+u = WORLD_X/1536
 # player size
 PLAYER_SIZE = (int(WORLD_X/15), int(WORLD_X/15))
+
+
 
 # nửa đường chéo rect player
 PLAYER_RADIUS = int(PLAYER_SIZE[0]/10)

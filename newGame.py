@@ -39,10 +39,12 @@ class Program:
     
     def endProcess(self):
         self.active = True
-        myfont = pygame.font.SysFont("./fonts/ComicSansMS3.ttf", 200)
-        label = myfont.render('VICTORY', True, RED)
+        #myfont = pygame.font.SysFont("./fonts/ComicSansMS3.ttf", 200)
+        fontGame = pygame.font.Font("assets/img/BACKGOUND/font.ttf", 100)
+
+        label = fontGame.render('VICTORY', True, RED)
         if self.counter > 0:
-            label = myfont.render('TRY AGAIN', True, RED)
+            label = fontGame.render('TRY AGAIN', True, RED)
         label_rect = label.get_rect(center=(WORLD_X/2, WORLD_Y/2))
         while self.active:
             for event in pygame.event.get():
@@ -190,7 +192,3 @@ class Program:
             monster = Monster(position,self.MAP)
             self.MONSTERs.add(monster)
 
-process = Program()
-process.startProcess()
-process.main()
-process.endProcess()
