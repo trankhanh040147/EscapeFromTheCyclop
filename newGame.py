@@ -39,6 +39,7 @@ class Program:
     
     def endProcess(self):
         self.active = True
+
         myfont = pygame.font.SysFont("./fonts/ComicSansMS3.ttf", 200)
         label = myfont.render('YOU WIN', True, RED)
         if self.counter > 0:
@@ -196,7 +197,3 @@ class Program:
             monster = Monster(position,self.MAP)
             self.MONSTERs.add(monster)
 
-process = Program()
-process.startProcess()
-process.main()
-process.endProcess()
