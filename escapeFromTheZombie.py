@@ -14,12 +14,12 @@ def init():
     return SCREEN, BG
 
 def get_font(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/img/BACKGOUND/font.ttf", size)
+    return pygame.font.Font("assets/fonts/font.ttf", size)
 
 def play():
     game = Program()
     game.startProcess()
-    game.main()
+    game.main() 
     game.endProcess()  
 
 def main_menu():

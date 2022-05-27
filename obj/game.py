@@ -16,12 +16,12 @@ class Program:
         # Cờ quản lý số key đang nhấn 
         self.__key_manager__ = 0
 
-        self.counter = 3000
+        self.counter = 3000.00
 
         self.is_start = False
 
         # Cờ addmin
-        self.admin_mode = True
+        self.admin_mode = False
 
     def main(self): 
         self.create_newPlayer()
@@ -32,12 +32,12 @@ class Program:
             
     def startProcess(self):
         pygame.init()
-        self.myfont = pygame.font.SysFont("./fonts/ComicSansMS3.ttf", 40)
+        self.myfont = pygame.font.Font("./assets/fonts/font.ttf", 15)
         self.WORLD = pygame.display.set_mode((WORLD_X, WORLD_Y))    
         self.backdropbox = self.WORLD.get_rect()
     
     def endProcess(self):
-        myfont = pygame.font.SysFont("./fonts/ComicSansMS3.ttf", 200)
+        myfont = pygame.font.Font("./assets/fonts/font.ttf", 100)
         label = myfont.render('YOU WIN', True, RED)
         if self.counter > 0:
             label = myfont.render('GAME OVER', True, RED)
@@ -135,10 +135,10 @@ class Program:
         if self.is_start:
             self.counter -= 1
 
-        pygame.draw.rect(self.WORLD, '#FBDE44', (BLOCK_SIZE[0], 10*U, BLOCK_SIZE[0]*3, BLOCK_SIZE[1]-20*U))
+        pygame.draw.rect(self.WORLD, '#FBDE44', (BLOCK_SIZE[0], 10*U, BLOCK_SIZE[0]*4, BLOCK_SIZE[1]-20*U))
 
         label = self.myfont.render(f'Time: {self.counter/100}', RED, RED)
-        self.WORLD.blit(label, (BLOCK_SIZE[0]+8*U-5, BLOCK_SIZE[1]/4))
+        self.WORLD.blit(label, (BLOCK_SIZE[0]+16*U-5, BLOCK_SIZE[1]/4 + 8*U))
         return self.active
 
     def update_Objects(self):
