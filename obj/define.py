@@ -30,7 +30,7 @@ PLAYER_RADIUS = int(PLAYER_SIZE[0]/10)
 PLAYER_START_POS = [int(WORLD_X/2), int(WORLD_Y/2)]
 
 # Tốc độ di chuyển player
-PLAYER_SPEED = int(WORLD_X/500)
+PLAYER_SPEED = 3 * U
 
 # MONSTER size
 MONSTER_SIZE = (int(WORLD_X/30), int(WORLD_X/30))
@@ -39,7 +39,7 @@ MONSTER_SIZE = (int(WORLD_X/30), int(WORLD_X/30))
 MONSTER_RADIUS = int(MONSTER_SIZE[0]/15)
 
 # Tốc độ di chuyển MONSTER
-MONSTER_SPEED = int(WORLD_X/400)
+MONSTER_SPEED = 4 * U
 
 # Block size
 BLOCK_SIZE = (int(WORLD_X/30), int(WORLD_X/30))

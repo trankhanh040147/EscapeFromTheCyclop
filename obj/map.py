@@ -5,7 +5,7 @@ from obj.block import *
 
 class map:
     MAP_IMAGE = {
-        'HOME': pygame.transform.scale(pygame.image.load('./assets/img/MAP/map0.png'), (WORLD_X, WORLD_Y)),
+        'HOME': pygame.transform.scale(pygame.image.load('./assets/img/MAP/map1.png'), (WORLD_X, WORLD_Y)),
     }
 
     def __init__(self, currentMap_string):
