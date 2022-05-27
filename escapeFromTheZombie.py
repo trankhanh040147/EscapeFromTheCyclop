@@ -36,13 +36,13 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(100).render("MENU", True, "#b68f40")
+        MENU_TEXT = get_font(55).render("ESCAPE FROM THE ZOMBIES", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(WORLD_X/2, 250*u))
 
         PLAY_BUTTON = Button(image=pygame.image.load("./assets/img/BACKGOUND/Play Rect.png"), pos=(WORLD_X/2, 420*u), 
-                            text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input="PLAY", font=get_font(70), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("./assets/img/BACKGOUND/Quit Rect.png"), pos=(WORLD_X/2, 550*u), 
-                            text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input="QUIT", font=get_font(70), base_color="#d7fcd4", hovering_color="White")
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
         for button in [PLAY_BUTTON, QUIT_BUTTON]:

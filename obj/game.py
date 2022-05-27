@@ -16,7 +16,7 @@ class Program:
         # Cờ quản lý số key đang nhấn 
         self.__key_manager__ = 0
 
-        self.counter = 3000.00
+        self.counter = 6000.00
 
         self.is_start = False
 
