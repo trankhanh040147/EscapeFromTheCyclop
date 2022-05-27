@@ -1,9 +1,12 @@
 import pygame
+import random
+import numpy as np
 from math import cos, sin, sqrt, pi, atan2
 
 from obj.define import *
 from obj.map import *
 from obj.AStar import *
+
 
 class Monster(pygame.sprite.Sprite):
 
@@ -229,7 +232,7 @@ class Monster(pygame.sprite.Sprite):
 
 
     def __AI__(self, pos):
-        # Viết code AI ở đây
+
         player_pos= [pos[1],pos[0]]
         monster_pos= [self.rect.center[1],self.rect.center[0]]
 
@@ -258,20 +261,41 @@ class Monster(pygame.sprite.Sprite):
                     p[1]=p[1]-self.arenaDiff[Monster_arena][1]
                     path.append(p)
 
-                    # p[0]-=self.arenaDiff[Monster_arena][0]
-                    # p[1]-=self.arenaDiff[Monster_arena][1]
-
     
             self.path.clear()
 
             if path is []:
                 return None
 
-            # path = ((self.toPixel(p[0]),self.toPixel(p[1])) for p in path)
-
             path_pix = []
             for p in path:
                 path_pix.append((self.toPixel(p)))
             return path_pix[1::]
         else:
-            return None
+            """Nếu monster nằm khác arena với player
+            Thì monster sẽ di chuyển ngẫu nhiên hoặc đứng phục kích tại một địa điểm bất kì trong Arena đó"""
+
+            if np.random.rand() > 0.1: 
+                flag = True
+                while flag:
+                    x = random.randint(1,7)
+                    y = random.randint(1,13)
+                    x_arena= x - self.arenaDiff[Monster_arena][0]
+                    y_arena= y - self.arenaDiff[Monster_arena][1]
+                    if self.maze[x_arena][y_arena] == 0 and [x_arena,y_arena] != self.toPos(monster_pos) :
+                        #Nểu random trúng vị trí block thì làm lại
+                        flag = False
+
+                destination = self.toPixel([x_arena,y_arena])
+
+                print(x_arena,y_arena)
+
+                # destination[1],destination[0] =destination[0],destination[1]
+
+                print(self.toPos(monster_pos)," --> ",[x_arena,y_arena],destination)
+
+                return self.__AI__(destination) 
+
+            else:
+                return None
+

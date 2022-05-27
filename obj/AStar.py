@@ -1,12 +1,7 @@
 #Tham khảo:
-#Thuật toán: 
-#    - file code week07_exercise.py của thầy
-#    - Pseudocode: (slide) https://cse.sc.edu/~mgv/csce580f08/gradPres/clevelandWaggonerAstar080915.pdf
-#    - Pseudocode: (video) https://youtu.be/wEDCJZWZLnA?t=3299
-#    - Hàm Heuristics: http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#diagonal-distance
-
-import time
-import tkinter as tk 
+#     + GV. Trần Nhật Quang
+#     + Russell 2016 Artificial intelligence a modern approach
+#     + Thuật toán Chebyshev distance: http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#diagonal-distance
 
 class Node:
     '''
@@ -60,9 +55,6 @@ class Node:
 
 
 def astar(maze, start, end):
-    '''
-
-    '''
     #Khoi tao cac node start va end
     start_node = Node(position = start)
     end_node = Node(position = end)

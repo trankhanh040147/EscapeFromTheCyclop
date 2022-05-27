@@ -38,7 +38,7 @@ class Program:
     
     def endProcess(self):
         myfont = pygame.font.Font("./assets/fonts/font.ttf", 100)
-        label = myfont.render('YOU WIN', True, RED)
+        label = myfont.render('YOU WIN', True, (GREEN))
         if self.counter > 0:
             label = myfont.render('GAME OVER', True, RED)
         label_rect = label.get_rect(center=(WORLD_X/2, WORLD_Y/2))

@@ -15,7 +15,6 @@ class map:
         self.BLOCKs_position = []
         self.__readMap__(MAP_NAME)
 
-    #Khánh
     def initialMaze(self):
         #Tao ma tran ke chua cac vi tri cac blocks
         mz = [] 

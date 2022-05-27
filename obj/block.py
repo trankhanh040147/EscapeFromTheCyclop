@@ -11,10 +11,12 @@ class Block(pygame.sprite.Sprite):
         # Vị trí
         '''
 
+
         - Dùng hệ thống lưới tương tự 2D-array
         - 1 ô kích thước BLOCK_SIZE
         - width: 0 - 29
         - height: 0 - 16
+
 
         '''
         self.rect = self.image.get_rect()

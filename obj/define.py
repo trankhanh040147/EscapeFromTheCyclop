@@ -39,7 +39,7 @@ MONSTER_SIZE = (int(WORLD_X/30), int(WORLD_X/30))
 MONSTER_RADIUS = int(MONSTER_SIZE[0]/15)
 
 # Tốc độ di chuyển MONSTER
-MONSTER_SPEED = 4 * U
+MONSTER_SPEED = 3.8 * U
 
 # Block size
 BLOCK_SIZE = (int(WORLD_X/30), int(WORLD_X/30))
