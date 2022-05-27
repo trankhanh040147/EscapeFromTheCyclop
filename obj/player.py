@@ -81,6 +81,7 @@ class Player(pygame.sprite.Sprite):
             self.rotate((self.rect.center[0] + self.movex, self.rect.center[1]+self.movey))
         self.isNextSquare = self.is_nextSquare()
 
+
     def rotate(self, pos):
         # Tìm góc so với vị trí chuột
         self.angle = 180/pi*atan2(-(pos[1]-self.rect.centery),(pos[0]-self.rect.centerx))

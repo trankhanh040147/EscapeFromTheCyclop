@@ -22,8 +22,15 @@ def play():
     game.main() 
     game.endProcess()  
 
+def music():
+    pygame.init()
+    pygame.mixer.init()
+    pygame.mixer.music.load('./assets/music/song1.mp3')
+    pygame.mixer.music.play()
+
 def main_menu():
     SCREEN, BG = init()
+    music()
     while True:
         SCREEN.blit(BG, (0, 0))
 

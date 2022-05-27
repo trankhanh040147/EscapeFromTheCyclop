@@ -210,16 +210,6 @@ class Monster(pygame.sprite.Sprite):
         x = pos[0]
         y = pos[1]
 
-        # if 1<=x<=7 and 1<=y<=13:
-        #     return 1
-        # elif 1<=x<=7 and 15<=y<=28:
-        #     return 2
-        # elif 9<=x<=15 and 1<=y<=13:
-        #     return 3
-        # elif 9<=x<=15 and 15<=y<=28:
-        #     return 4
-        # else: return 0
-
         if 0<=x<=8 and 0<=y<=14:
             return 0
         elif 0<=x<=8 and 15<=y<=29:
@@ -287,12 +277,6 @@ class Monster(pygame.sprite.Sprite):
                         flag = False
 
                 destination = self.toPixel([x_arena,y_arena])
-
-                print(x_arena,y_arena)
-
-                # destination[1],destination[0] =destination[0],destination[1]
-
-                print(self.toPos(monster_pos)," --> ",[x_arena,y_arena],destination)
 
                 return self.__AI__(destination) 
 

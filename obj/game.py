@@ -56,7 +56,7 @@ class Program:
             pygame.display.flip()
             self.clock.tick(FPS)
             count -= 1
-        pygame.quit()
+
 
     def checkEvent(self):
         for event in pygame.event.get():
@@ -157,6 +157,8 @@ class Program:
                     pygame.draw.lines(self.WORLD, (0,0,255), False, monster.path, 3)
                     for point in monster.path:
                         pygame.draw.circle(self.WORLD, (0,0,0), point, 3)
+        
+            
 
     def is_Endgame(self):
         # Check END GAME
