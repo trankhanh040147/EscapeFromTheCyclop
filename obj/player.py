@@ -7,7 +7,7 @@ from obj.map import *
 
 class Player(pygame.sprite.Sprite):
     steps = PLAYER_SPEED
-    def __init__(self, position):
+    def __init__(self, position=PLAYER_START_POS):
         # init sprite để quản lý obj
         pygame.sprite.Sprite.__init__(self)
         
@@ -26,10 +26,10 @@ class Player(pygame.sprite.Sprite):
         
         # vị trí vẽ
         self.rect = self.image_original.get_rect()
-        self.rect[0], self.rect[1] = position
+        self.rect[0], self.rect[1] = [position[0], position[1]]
 
         # vị trí nhân vật
-        self.position = position
+        self.position = [position[0], position[1]]
         self.position_center = [position[0] + PLAYER_SIZE[0]/2, position[1] + PLAYER_SIZE[1]/2]
 
         # Player square
@@ -77,7 +77,8 @@ class Player(pygame.sprite.Sprite):
             self.position[1] = self.position[1] + self.movey
         self.rect[0], self.rect[1] = self.position
         self.position_center = [self.position[0] + PLAYER_SIZE[0]/2, self.position[1] + PLAYER_SIZE[1]/2]
-        self.rotate(pos)
+        if self.movex != 0 or self.movey!=0:
+            self.rotate((self.rect.center[0] + self.movex, self.rect.center[1]+self.movey))
         self.isNextSquare = self.is_nextSquare()
 
     def rotate(self, pos):

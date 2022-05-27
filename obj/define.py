@@ -1,8 +1,11 @@
+MAP_NAME = 'map1'
+
 from win32api import GetSystemMetrics
 
 # Size of SCREEN
 WORLD_X = GetSystemMetrics(0)
 WORLD_Y = GetSystemMetrics(1)
+
 U = WORLD_X/1536
 # Tốc độ khung hình
 FPS = 60

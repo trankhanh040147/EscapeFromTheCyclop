@@ -4,7 +4,6 @@ from obj.map import *
 from obj.player import *
 from obj.monster import *
 from obj.block import *
-from obj.rand_map import *
 
 class Program: 
     def __init__(self):
@@ -38,14 +37,13 @@ class Program:
         self.backdropbox = self.WORLD.get_rect()
     
     def endProcess(self):
-        self.active = True
-
         myfont = pygame.font.SysFont("./fonts/ComicSansMS3.ttf", 200)
         label = myfont.render('YOU WIN', True, RED)
         if self.counter > 0:
             label = myfont.render('GAME OVER', True, RED)
         label_rect = label.get_rect(center=(WORLD_X/2, WORLD_Y/2))
-        while self.active:
+        count = 200
+        while count > 0:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return False
@@ -56,6 +54,8 @@ class Program:
             self.WORLD.fill(BLACK)
             self.WORLD.blit(label, (label_rect))
             pygame.display.flip()
+            self.clock.tick(FPS)
+            count -= 1
         pygame.quit()
 
     def checkEvent(self):
@@ -109,7 +109,6 @@ class Program:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.admin_mode:
                     pos = (int(pygame.mouse.get_pos()[0]/BLOCK_SIZE[0]),int(pygame.mouse.get_pos()[1]/BLOCK_SIZE[1]))
-                    print(pygame.mouse.get_pos())
                     self.MAP.BLOCKs.add(Block(pos))
                     #addbox(pos)
                     
@@ -135,10 +134,6 @@ class Program:
             return False
         if self.is_start:
             self.counter -= 1
-            
-        # my_world = pygame.Surface((WORLD_X, WORLD_Y), pygame.SRCALPHA)
-        # pygame.draw.rect(my_world, WHITE, (BLOCK_SIZE[0], 10*U, BLOCK_SIZE[0]*3, BLOCK_SIZE[1]-20*U),10)
-
 
         pygame.draw.rect(self.WORLD, '#FBDE44', (BLOCK_SIZE[0], 10*U, BLOCK_SIZE[0]*3, BLOCK_SIZE[1]-20*U))
 
@@ -155,11 +150,13 @@ class Program:
         self.MAP.BLOCKs.draw(self.WORLD)
         self.PLAYERs.draw(self.WORLD)
         self.MONSTERs.draw(self.WORLD)
-        for monster in self.MONSTERs:
-            if len(monster.path) > 1:
-                pygame.draw.lines(self.WORLD, (0,0,255), False, monster.path, 3)
-                for point in monster.path:
-                    pygame.draw.circle(self.WORLD, (0,0,0), point, 3)
+        
+        if self.admin_mode:
+            for monster in self.MONSTERs:
+                if len(monster.path) > 1:
+                    pygame.draw.lines(self.WORLD, (0,0,255), False, monster.path, 3)
+                    for point in monster.path:
+                        pygame.draw.circle(self.WORLD, (0,0,0), point, 3)
 
     def is_Endgame(self):
         # Check END GAME
@@ -169,7 +166,7 @@ class Program:
                 break
 
     def create_newPlayer(self):
-        self.PLAYER = Player(PLAYER_START_POS)
+        self.PLAYER = Player()
         self.PLAYERs.add(self.PLAYER)
 
     def isnotBlock(self, blocks, pos):
@@ -192,7 +189,7 @@ class Program:
                 string[i][1] = int(string[i][1])
             return string
         
-        positions = __readMap__("map1")
+        positions = __readMap__(MAP_NAME)
         for position in positions:
             monster = Monster(position,self.MAP)
             self.MONSTERs.add(monster)

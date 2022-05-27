@@ -104,8 +104,8 @@ class Monster(pygame.sprite.Sprite):
         # Xoá khung
         self.image.set_colorkey(ALPHA)
 
-    def attack(self, player_rect):
-        if player_rect.collidepoint((self.rect.center)):
+    def attack(self, player_pos):
+        if self.rect.collidepoint(player_pos):
             return True
         return False
 
@@ -116,6 +116,7 @@ class Monster(pygame.sprite.Sprite):
             self.index = 0
             if temp != None:
                 self.path = temp
+                self.path.append(player.position_center)
             else:
                 self.path = [[self.position[0] + PLAYER_SIZE[0]/2, self.position[1] + PLAYER_SIZE[1]/2]]
 
@@ -133,33 +134,30 @@ class Monster(pygame.sprite.Sprite):
         if len(self.path) > 1:
             self.movex = self.speed * cos(self.angle/180*pi)
             self.movey = -self.speed * sin(self.angle/180*pi)
+
+            vector_r = (self.rect.center[0] - self.path[self.index][0], self.rect.center[1] - self.path[self.index][1])
+            radius = sqrt(vector_r[0]**2 + vector_r[1]**2)
+            if 0 < radius and radius < self.speed_sqrt2:
+                self.index += 1
+
+            # MONSTER tấn công
+            self.hit_player = self.attack(player.position_center)
+
+            # Di chuyển Monster
+            if (self.isMovableX(self.movex, blocks)):
+                self.position[0] = self.position[0] + self.movex
+            if (self.isMovableY(self.movey, blocks)):
+                self.position[1] = self.position[1] + self.movey
+            self.position_center = [self.position[0] + PLAYER_SIZE[0]/2, self.position[1] + PLAYER_SIZE[1]/2]
+            self.rect[0], self.rect[1] = self.position
+
+            self.face_angle = 180/pi*atan2(-(player.rect.center[1]-self.rect.centery),(player.rect.center[0]-self.rect.centerx))
+            # Xoay ảnh hướng đến vị trí tiếp theo
+            self.rotate()
+            self.path[len(self.path)-1] = player.position_center
         else:
             self.movex = 0
             self.movey = 0
-
-        vector_r = (self.rect.center[0] - self.path[self.index][0], self.rect.center[1] - self.path[self.index][1])
-        radius = sqrt(vector_r[0]**2 + vector_r[1]**2)
-        if 0 < radius and radius < self.speed_sqrt2:
-            self.index += 1
-
-        # MONSTER tấn công
-        self.hit_player = self.attack(player.rect)
-
-        # Di chuyển Monster
-        if (self.isMovableX(self.movex, blocks)):
-            self.position[0] = self.position[0] + self.movex
-        if (self.isMovableY(self.movey, blocks)):
-            self.position[1] = self.position[1] + self.movey
-        self.position_center = [self.position[0] + PLAYER_SIZE[0]/2, self.position[1] + PLAYER_SIZE[1]/2]
-        self.rect[0], self.rect[1] = self.position
-
-        self.face_angle = 180/pi*atan2(-(player.rect.center[1]-self.rect.centery),(player.rect.center[0]-self.rect.centerx))
-        # Xoay ảnh hướng đến vị trí tiếp theo
-        self.rotate()
-
-
-    #############################################################
-    #Khánh
 
     def initArena(self,arena_num,x1,y1,x2,y2):
         """Khởi tạo arena với:

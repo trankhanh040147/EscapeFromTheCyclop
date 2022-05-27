@@ -13,7 +13,7 @@ class map:
         self.currentMap = self.MAP_IMAGE[currentMap_string]
         self.BLOCKs = pygame.sprite.Group()
         self.BLOCKs_position = []
-        self.__readMap__('map1')
+        self.__readMap__(MAP_NAME)
 
     #Khánh
     def initialMaze(self):
