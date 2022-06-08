@@ -5,7 +5,7 @@ from obj.player import *
 from obj.monster import *
 from obj.game import *
 from obj.button import *
-
+# Lam Heo Heo
 def init():
     pygame.init()
     SCREEN = pygame.display.set_mode((WORLD_X, WORLD_Y))
